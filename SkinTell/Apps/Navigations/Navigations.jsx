@@ -8,13 +8,11 @@ import Loby from '../Loby/Loby';
 import RegisterScreen from '../Loby/SingUp/RegisterScreen';
 import LoginScreen from '../Loby/Login/LoginScreen';
 import HomeScreen from '../HomeScreen/HomeScreen';
-import UpNext from '../Screens/UpNext/UpNext';
-import ResultScreen from '../Screens/Results/ResultScreen';
-import BoardScreen from '../Screens/Board/BoardScreen';
+
 import ProfileScreen from '../Profile/ProfileScreen';
-import SettingScreen from '../Screens/Settings/SettingScreen';
 import Colors from '../../Utils/Colors/Colors';
 import { Entypo, Foundation, MaterialIcons, AntDesign, Feather  } from '@expo/vector-icons';
+import CameraScreen from '../Camera/CameraScreen';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => (
@@ -54,7 +52,7 @@ const TabNavigator = () => (
 
 <Tab.Screen
   name="camera"
-  component={HomeScreen}
+  component={CameraScreen}
   tabBarOptions={{
     activeTintColor: Colors.WHITE,
     inactiveTintColor: Colors.WHITE,
@@ -114,14 +112,14 @@ const TabNavigator = () => (
 
 export const SignInNavigation = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-    <Stack.Screen name="Home" component={TabNavigator} />
+    <Stack.Screen name="Dashboard" component={TabNavigator} />
   </Stack.Navigator>
 );
 
 
 export const SignOutNavigation = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="Home" component={StartUp} />
+      <Stack.Screen name="StartUp" component={StartUp} />
       <Stack.Screen name="Loby" component={Loby} />
       <Stack.Screen name="Register" component={RegisterScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />

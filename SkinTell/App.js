@@ -40,7 +40,7 @@ export default function App() {
     </Stack.Navigator>
       </SignedIn>
       <SignedOut>
-      <Stack.Navigator initialRouteName="Home" screenOptions={{ headerShown: false }}>
+      <Stack.Navigator initialRouteName="StartUp" screenOptions={{ headerShown: false }}>
         <Stack.Screen name="SignOut" component={SignOutNavigation} />
       </Stack.Navigator>
       </SignedOut>
