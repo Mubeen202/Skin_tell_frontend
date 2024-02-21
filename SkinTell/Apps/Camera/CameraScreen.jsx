@@ -1,10 +1,10 @@
 import { View, Text } from 'react-native'
 import React from 'react'
 
-export default function DashboardScreen() {
+export default function CameraScreen() {
   return (
     <View>
-      <Text>DashboardScreen</Text>
+      <Text>CameraScreen</Text>
     </View>
   )
 }
