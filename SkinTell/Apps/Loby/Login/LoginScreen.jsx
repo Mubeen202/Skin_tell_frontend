@@ -71,8 +71,8 @@ export default function LoginScreen({ navigation }) {
         <Text>You do not have an account yet ?</Text> 
       </View>
       <View style={styles.row}>
-      <TouchableOpacity onPress={() => navigation.replace('RegisterScreen')}>
-          <Text style={styles.link}>Create !</Text>
+      <TouchableOpacity onPress={() => navigation.replace('Register')}>
+          <Text style={styles.link}>SingUp !</Text>
         </TouchableOpacity>
       </View>
     </Background>
@@ -95,6 +95,6 @@ const styles = StyleSheet.create({
   },
   link: {
     fontWeight: 'bold',
-    color: Colors.DARK_PURPLE,
+    color: Colors.PRIMARY,
   },
 })

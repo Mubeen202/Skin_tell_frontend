@@ -12,9 +12,7 @@ export default function Loby() {
 
   const navigation = useNavigation();
   
-  const handleLogin = () => {
-    // Logic for handling login
-  };
+ 
 
   const handleSignUp = React.useCallback(() => {
     navigation.navigate('Register');
@@ -46,18 +44,19 @@ export default function Loby() {
       <View style={styles.overlay}>
         <Text style={styles.titleText}>Welcome to SkinTell.</Text>
         <Text style={styles.welcomeText}>Your Personal Skin Care Companion!</Text>
-        <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={handleLogin}>
+        <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={() => navigation.replace('Login')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={handleSignUp}>
           <Text style={styles.buttonText}>Sign Up</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.facebookButton]} onPress={handleFacebookLogin}>
-          <Text style={styles.buttonText}>Login with Facebook</Text>
-        </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.googleButton]} onPress={handleGoogleLogin}>
           <Text style={styles.buttonText}>Login with Google</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.facebookButton]} onPress={handleFacebookLogin}>
+          <Text style={styles.buttonText}>Login with Facebook</Text>
+        </TouchableOpacity>
+       
       </View>
     </ImageBackground>
   );
