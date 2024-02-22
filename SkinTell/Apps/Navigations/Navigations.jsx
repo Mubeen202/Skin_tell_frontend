@@ -11,104 +11,87 @@ import HomeScreen from '../HomeScreen/HomeScreen';
 
 import ProfileScreen from '../Profile/ProfileScreen';
 import Colors from '../../Utils/Colors/Colors';
-import { Entypo, Foundation, MaterialIcons, AntDesign, Feather  } from '@expo/vector-icons';
+import { Entypo, Foundation, MaterialIcons, AntDesign, Feather } from '@expo/vector-icons';
 import CameraScreen from '../Camera/CameraScreen';
+import { useNavigationState } from '@react-navigation/native';
+import FinalReport from '../FinalReportScreen/FinalReport';
+
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
-const TabNavigator = () => (
-  <Tab.Navigator screenOptions={{ headerShown: false, }} >
 
-<Tab.Screen
-      name="Home"
-      component={HomeScreen}
-      tabBarOptions={{
-        activeTintColor: Colors.DARK_PURPLE,
-        inactiveTintColor: Colors.DARK_PURPLE,
-        style: {
-          backgroundColor: Colors.WHITE,
-        },
-      }}
-      options={{
-        tabBarLabel: ({ color }) => (
-          <Text style={{ color: Colors.DARK_PURPLE, fontSize: 12,  }}>Home</Text>
-          
-        ),
+const TabNavigator = () => {
+  const navigationState = useNavigationState(state => state);
 
-        tabBarIcon: ({ color, size }) => (
-          <AntDesign name="home" size={24} color={Colors.DARK_PURPLE} />
+  return (
+    <Tab.Navigator screenOptions={{ headerShown: false }}>
+      <Tab.Screen
+        name="Home"
+        component={HomeScreen}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? Colors.PRIMARY : Colors.DARK_PURPLE, fontSize: 12 }}>Home</Text>
           ),
-
-        tabBarStyle: {
-            backgroundColor: Colors.WHITE, // Set background color here
-          },
-
-        
-
-       
-      }}
-      
-    />
-    
-
-<Tab.Screen
-  name="camera"
-  component={CameraScreen}
-  tabBarOptions={{
-    activeTintColor: Colors.WHITE,
-    inactiveTintColor: Colors.WHITE,
-  }}
-  options={{
-    tabBarLabel: ({ color }) => (
-      <Text style={{ color: Colors.PRIMARY, fontSize: 20,  }}>Camera</Text>
-    ),
-    tabBarIcon: ({ color, size }) => (
-      <Feather name="camera" size={24} color={Colors.PRIMARY} />
-    ),
-    tabBarStyle: {
-      backgroundColor: Colors.WHITE, // Set background color here
-    },
-  }}
-/>
-   
-
-<Tab.Screen
-      name="profile"
-      component={ProfileScreen}
-      tabBarOptions={{
-        activeTintColor: Colors.WHITE,
-        inactiveTintColor: Colors.WHITE,
-        style: {
-          backgroundColor: Colors.WHITE,
-        },
-      }}
-      options={{
-        tabBarLabel: ({ color }) => (
-          <Text style={{ color: Colors.DARK_PURPLE, fontSize: 12,  }}>Profile</Text>
-          
-        ),
-
-        tabBarIcon: ({ color, size }) => (
-          <AntDesign name="user" size={24} color={Colors.DARK_PURPLE} />
-            
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="home" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
           ),
+          tabBarStyle: {
+            backgroundColor: Colors.WHITE,
+            borderTopLeftRadius: 99,
+            borderTopRightRadius: 99
+          }
+        }}
+      />
 
-        tabBarStyle: {
-            backgroundColor: Colors.WHITE, // Set background color here
-          },
+      <Tab.Screen
+        name="Camera"
+        component={CameraScreen}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? Colors.PRIMARY : Colors.DARK_PURPLE, fontSize: 12 }}>Camera</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <Feather name="camera" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
+          ),
+          tabBarStyle: {
+            backgroundColor: Colors.WHITE,
+          }
+        }}
+      />
 
-        
+      <Tab.Screen
+        name="Profile"
+        component={ProfileScreen}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? Colors.PRIMARY : Colors.DARK_PURPLE, fontSize: 12 }}>Profile</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="user" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
+          ),
+          tabBarStyle: {
+            backgroundColor: Colors.WHITE,
+          }
+        }}
+      />
 
-       
-      }}
-      
-    />
-   
-
-
-
-    
-  </Tab.Navigator>
-);
+    <Tab.Screen
+        name="report"
+        component={FinalReport}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? Colors.PRIMARY : Colors.DARK_PURPLE, fontSize: 12 }}>Report</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="user" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
+          ),
+          tabBarStyle: {
+            backgroundColor: Colors.WHITE,
+          }
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
 export const SignInNavigation = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -116,14 +99,11 @@ export const SignInNavigation = () => (
   </Stack.Navigator>
 );
 
-
 export const SignOutNavigation = () => (
   <Stack.Navigator screenOptions={{ headerShown: false }}>
-      <Stack.Screen name="StartUp" component={StartUp} />
-      <Stack.Screen name="Loby" component={Loby} />
-      <Stack.Screen name="Register" component={RegisterScreen} />
-      <Stack.Screen name="Login" component={LoginScreen} />
+    <Stack.Screen name="StartUp" component={StartUp} />
+    <Stack.Screen name="Loby" component={Loby} />
+    <Stack.Screen name="Register" component={RegisterScreen} />
+    <Stack.Screen name="Login" component={LoginScreen} />
   </Stack.Navigator>
 );
-
-
