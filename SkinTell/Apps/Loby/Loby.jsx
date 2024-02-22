@@ -3,32 +3,19 @@ import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from 'react
 import * as Facebook from 'expo-auth-session/providers/facebook';
 import * as Google from 'expo-auth-session/providers/google';
 import { AuthSession } from 'expo';
-import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 import Colors from '../../Utils/Colors/Colors';
 import { useNavigation } from '@react-navigation/native';
+import * as WebBrowser from "expo-web-browser";
+import { useWarmUpBrowser } from "../../Utils/hooks/useWarmUpBrowser";
+import { useOAuth } from "@clerk/clerk-expo";
+import { useFonts } from 'expo-font';
+WebBrowser.maybeCompleteAuthSession();
+
+
 
 export default function Loby() {
-
-  const navigation = useNavigation();
-  
-  const handleLogin = () => {
-    // Logic for handling login
-  };
-
-  const handleSignUp = React.useCallback(() => {
-    navigation.navigate('Register');
-  }, [navigation]);
- 
-
-  const handleFacebookLogin = async () => {
-    // Logic for handling Facebook login
-  };
-
-  const handleGoogleLogin = async () => {
-    // Logic for handling Google login
-  };
-
+  const navigation = useNavigation(); 
   const [fontsLoaded, fontError] = useFonts({
     "Outfit-Black": require("../../assets/static/Outfit-Black.ttf"),
     "Outfit-Bold": require("../../assets/static/Outfit-Bold.ttf"),
@@ -36,6 +23,31 @@ export default function Loby() {
     "Outfit-Medium": require("../../assets/static/Outfit-Medium.ttf"),
     "Outfit-Regular": require("../../assets/static/Outfit-Regular.ttf"),
   });
+  useWarmUpBrowser();
+  const { startOAuthFlow } = useOAuth({ strategy: "oauth_google" });
+ 
+  const handleGoogleLogin = React.useCallback(async () => {
+    try {
+      const { createdSessionId, signIn, signUp, setActive } =
+        await startOAuthFlow();
+ 
+      if (createdSessionId) {
+        setActive({ session: createdSessionId });
+      } else {
+        // Use signIn or signUp for next steps such as MFA
+      }
+    } catch (err) {
+      console.error("OAuth error", err);
+    }
+  }, []);
+ 
+
+  const handleFacebookLogin = async () => {
+    // Logic for handling Facebook login
+  };
+ 
+
+ 
 
   if (!fontsLoaded && !fontError) {
     return null;
@@ -46,18 +58,19 @@ export default function Loby() {
       <View style={styles.overlay}>
         <Text style={styles.titleText}>Welcome to SkinTell.</Text>
         <Text style={styles.welcomeText}>Your Personal Skin Care Companion!</Text>
-        <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={handleLogin}>
+        <TouchableOpacity style={[styles.button, styles.loginButton]} onPress={() => navigation.replace('Login')}>
           <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={handleSignUp}>
+        <TouchableOpacity style={[styles.button, styles.signUpButton]} onPress={() => navigation.replace('Register')}>
           <Text style={styles.buttonText}>Sign Up</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={[styles.button, styles.facebookButton]} onPress={handleFacebookLogin}>
-          <Text style={styles.buttonText}>Login with Facebook</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.googleButton]} onPress={handleGoogleLogin}>
           <Text style={styles.buttonText}>Login with Google</Text>
         </TouchableOpacity>
+        <TouchableOpacity style={[styles.button, styles.facebookButton]} onPress={handleFacebookLogin}>
+          <Text style={styles.buttonText}>Login with Facebook</Text>
+        </TouchableOpacity>
+       
       </View>
     </ImageBackground>
   );
