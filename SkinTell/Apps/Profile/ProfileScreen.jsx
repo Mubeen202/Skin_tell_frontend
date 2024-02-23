@@ -11,11 +11,10 @@ const ProfileScreen = () => {
     <View style={styles.container}>
       {user?.imageUrl ? (
       <Image
-        style={{ width: 100, height: 100, borderRadius:99 }} // Adjust width and height as needed
-        source={{ uri: user.imageUrl }} // Set the image source to user.imageUrl
+        style={styles.profileImage}
+        source={{ uri: user.imageUrl }}
       />
     ) : (
-      // You can render a placeholder or default image if user.imageUrl is not available
       <MaterialIcons
           style={styles.profileIcon}
           name="person"
@@ -40,6 +39,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    backgroundColor: "#fff", // Set background color
+  },
+  profileImage: {
+    width: 150,
+    height: 150,
+    borderRadius: 75, // Make it a circle
+    marginBottom: 20,
   },
   profileIcon: {
     marginBottom: 20,
@@ -51,18 +57,22 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
+    color: "#333", // Set text color
   },
   bio: {
     fontSize: 16,
     textAlign: "center",
     marginBottom: 10,
+    color: "#666", // Set text color
   },
   email: {
     fontSize: 14,
     marginBottom: 5,
+    color: "#666", // Set text color
   },
   location: {
     fontSize: 14,
+    color: "#666", // Set text color
   },
 });
 

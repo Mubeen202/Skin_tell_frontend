@@ -1,7 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text, ImageBackground, TouchableOpacity } from 'react-native';
-import * as Facebook from 'expo-auth-session/providers/facebook';
-import * as Google from 'expo-auth-session/providers/google';
 import { AuthSession } from 'expo';
 import * as SplashScreen from 'expo-splash-screen';
 import Colors from '../../Utils/Colors/Colors';

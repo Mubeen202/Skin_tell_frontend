@@ -15,6 +15,7 @@ import { Entypo, Foundation, MaterialIcons, AntDesign, Feather } from '@expo/vec
 import CameraScreen from '../Camera/CameraScreen';
 import { useNavigationState } from '@react-navigation/native';
 import FinalReport from '../FinalReportScreen/FinalReport';
+import signOut from '../SignOut/signOut';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -67,6 +68,22 @@ const TabNavigator = () => {
           ),
           tabBarIcon: ({ focused }) => (
             <AntDesign name="user" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
+          ),
+          tabBarStyle: {
+            backgroundColor: Colors.WHITE,
+          }
+        }}
+      />
+
+      <Tab.Screen
+        name="signOut"
+        component={signOut}
+        options={{
+          tabBarLabel: ({ focused }) => (
+            <Text style={{ color: focused ? Colors.PRIMARY : Colors.DARK_PURPLE, fontSize: 12 }}>Sign Out</Text>
+          ),
+          tabBarIcon: ({ focused }) => (
+            <AntDesign name="logout" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
           ),
           tabBarStyle: {
             backgroundColor: Colors.WHITE,

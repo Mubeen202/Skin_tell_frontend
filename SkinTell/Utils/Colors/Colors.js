@@ -4,6 +4,6 @@ export default{
     LIGHT_GREY:'#555353',
     DARK_PURPLE:'#17131F',
     WHITE:'#F6F2F2',
-    PRIMARY:'#5F3CFE',
+    PRIMARY:'#38A7F6',
     BLACK:'#000000'
 }
