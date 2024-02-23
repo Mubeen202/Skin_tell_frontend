@@ -74,21 +74,7 @@ const TabNavigator = () => {
         }}
       />
 
-    <Tab.Screen
-        name="report"
-        component={FinalReport}
-        options={{
-          tabBarLabel: ({ focused }) => (
-            <Text style={{ color: focused ? Colors.PRIMARY : Colors.DARK_PURPLE, fontSize: 12 }}>Report</Text>
-          ),
-          tabBarIcon: ({ focused }) => (
-            <AntDesign name="user" size={24} color={focused ? Colors.PRIMARY : Colors.DARK_PURPLE} />
-          ),
-          tabBarStyle: {
-            backgroundColor: Colors.WHITE,
-          }
-        }}
-      />
+   
     </Tab.Navigator>
   );
 };
