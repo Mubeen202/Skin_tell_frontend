@@ -2,10 +2,26 @@ import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 import { ProgressBar } from "react-native-paper";
 import Colors from "../../Utils/Colors/Colors";
+import Loader from "../Loader/Loader";
 
-const FinalReport = (props) => {
+const FinalReport = ({image, data}) => {
+  console.log(data)
+  if (!data || !data.classify_image) {
+    return <Loader />;
+  }
   // Logic for determining the progress bar color
-  const { image } = props;
+  const { classify_image, classify_type } = data;
+
+  // Extract dark spots, puffy eyes, and wrinkles from classify_image
+  const [darkSpots, puffyEyes, wrinkles] = classify_image.map((item) => {
+    const [label, percentage] = item.split(" : ");
+    // Extract value without percentage
+    const value = parseFloat(percentage);
+    return { label, percentage, value };
+  });
+  console.log('these are elements', darkSpots.value, puffyEyes, wrinkles, classify_type)
+ 
+
   const getColor = (progress) => {
     if (progress >= 0.0 && progress <= 20.0) {
       return "green";
@@ -40,39 +56,40 @@ const FinalReport = (props) => {
       {/* Section for another component */}
       <View style={[styles.section, styles.textSection]}>
         {/* Your another component goes here */}
-        <Text>Another Component Section</Text>
+        <Text>{classify_type}</Text>
       </View>
 
       {/* Section for progress bars with texts */}
       <View style={[styles.section, styles.progressSection]}>
-        <View style={styles.progressContainer}>
-          <Text>Progress 1: </Text>
-          <ProgressBar
-            progress={62.5 / 100} // Divide by 100 to convert percent to fraction
-            color={getColor(62.5)} // Determine color based on percent
-            style={styles.progressBar}
-          />
-          <Text>{`${Math.round(62.5)}%`}</Text>
-        </View>
-        <View style={styles.progressContainer}>
-          <Text>Progress 2: </Text>
-          <ProgressBar
-            progress={62.5 / 100} // Divide by 100 to convert percent to fraction
-            color={getColor(62.5)} // Determine color based on percent
-            style={styles.progressBar}
-          />
-          <Text>{`${Math.round(62.5)}%`}</Text>
-        </View>
-        <View style={styles.progressContainer}>
-          <Text>Progress 3: </Text>
-          <ProgressBar
-            progress={62.5 / 100} // Divide by 100 to convert percent to fraction
-            color={getColor(62.5)} // Determine color based on percent
-            style={styles.progressBar}
-          />
-          <Text>{`${Math.round(62.5)}%`}</Text>
-        </View>
-      </View>
+  <View style={[styles.progressContainer, styles.progressItem]}>
+    <Text>DARK SPOTS: </Text>
+    <ProgressBar
+      progress={darkSpots.value / 100}
+      color={getColor(darkSpots.value)}
+      style={styles.progressBar}
+    />
+    <Text>{darkSpots.percentage}</Text>
+  </View>
+  <View style={[styles.progressContainer, styles.progressItem]}>
+    <Text>PUFFY EYES</Text>
+    <ProgressBar
+      progress={puffyEyes.value / 100}
+      color={getColor(puffyEyes.value)}
+      style={styles.progressBar}
+    />
+    <Text>{puffyEyes.percentage}</Text>
+  </View>
+  <View style={[styles.progressContainer, styles.progressItem]}>
+    <Text>WRINKLES </Text>
+    <ProgressBar
+      progress={wrinkles.value / 100}
+      color={getColor(wrinkles.value)}
+      style={styles.progressBar}
+    />
+    <Text>{wrinkles.percentage}</Text>
+  </View>
+</View>
+
     </View>
   );
 };
@@ -107,10 +124,14 @@ const styles = StyleSheet.create({
   progressContainer: {
     flexDirection: "row",
     alignItems: "center",
+    gap:20
   },
   progressBar: {
     width: 200,
     height: 20,
+  },
+  progressItem: {
+    marginBottom: 10, // Add your desired margin-bottom value
   },
 });
 
