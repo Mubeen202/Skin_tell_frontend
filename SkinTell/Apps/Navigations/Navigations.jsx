@@ -43,7 +43,7 @@ const TabNavigator = () => {
         }}
       />
 
-      <Tab.Screen
+<Tab.Screen
         name="Camera"
         component={CameraScreen}
         options={{

@@ -1,14 +1,24 @@
 import React, { useEffect, useState } from "react";
+import { useFocusEffect } from "@react-navigation/native";
+
 import * as ImagePicker from "expo-image-picker";
+import {Button } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import FinalReport from "../FinalReportScreen/FinalReport";
 import axios from 'axios';
 export default function CameraScreen() {
+  const navigation = useNavigation();
   const [image, setImage] = useState(null);
   const [data, setData] = useState({});
+  const [cameraOpened, setCameraOpened] = useState(false);
 
   useEffect(() => {
-   pickImage();
-  }, []);
+    if (!cameraOpened) {
+      setCameraOpened(true);
+      pickImage();
+    }
+  }, [cameraOpened]);
+
 
   const pickImage = async () => {
     await ImagePicker.requestCameraPermissionsAsync();
@@ -22,6 +32,12 @@ export default function CameraScreen() {
     if (!result.cancelled) {
       setImage(result.assets[0].uri);
       uploadImage(result.assets[0].uri)
+    }
+    else {
+      // If the user cancels image capture, set image state to null
+      console.log('this is running')
+      setImage(null);
+      setData({});
     }
   };
 
@@ -64,18 +80,25 @@ export default function CameraScreen() {
   };
 
 
+  const reloadImage = () => {
+    setImage(null);
+    setData({});
+    pickImage();
+  };
 
   return (
     <>
       {image ? (
+        <>
         <FinalReport
          image={image} 
          data={data}
           />
+          <Button title="Reload Image" onPress={reloadImage} style={{borderRadius:30}} />
+          </>
       ) : (
         <></> // Render nothing until the image is captured
       )}
     </>
   );
-
-      }
+}

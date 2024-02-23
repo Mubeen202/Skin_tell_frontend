@@ -90,6 +90,7 @@ const FinalReport = ({image, data}) => {
   </View>
 </View>
 
+
     </View>
   );
 };
