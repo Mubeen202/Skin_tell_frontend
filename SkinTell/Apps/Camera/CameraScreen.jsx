@@ -53,7 +53,7 @@ export default function CameraScreen() {
       name: 'photo.jpg', // Set the image name
     });
     try {
-      const response = await axios.post('http://192.168.0.105:8000/api/posts', formData, {
+      const response = await axios.post('http://192.168.0.104:8000/api/posts', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

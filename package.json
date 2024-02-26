@@ -1,6 +1,0 @@
-{
-  "dependencies": {
-    "@react-navigation/native": "^6.1.10",
-    "react-native-screens": "^3.29.0"
-  }
-}
